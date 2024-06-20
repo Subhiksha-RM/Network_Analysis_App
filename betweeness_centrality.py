@@ -37,11 +37,15 @@ class Betweeness:
           if 'edge_weight' in df.columns:
           #result = df.groupby('source_node').apply(lambda x: dict(zip(x.target_node, x.edge_weight))).to_dict()
            result = df.groupby('source_node')[['source_node', 'target_node', 'edge_weight']].apply(lambda x: dict(zip(x.target_node, x.edge_weight))).to_dict()
-          else:
-            result = df.groupby('source_node')['target_node'].apply(list).to_dict()
-          return result
+          else: 
+           if 'value' in df.columns:
+            # Check if 'value' column has None or 1
+            if df['value'].isin([None, 1]).any():
+                # Filter rows where 'value' is 1 and create a dictionary with 'source' as keys and 'target' as values
+                result = df[df['value'] == 1].groupby('source')['target'].apply(list).to_dict()
+                return result
       result = create_dict(df)
-      #print(result)
+      print(result)
 
           
       if 'edge_weight' not in df.columns:
@@ -57,6 +61,7 @@ class Betweeness:
             has_edge_weights = all(isinstance(wgt, (int, float)) for tgts in result.values() for wgt in tgts.values())
             
             # Convert the dictionary to a list of edges with weights if it has edge weights,
+            st.write(result)
             edges = [(src, tgt, {'weight': wgt}) for src, tgts in result.items() for tgt, wgt in tgts.items()]
             # Create a directed graph and add edges from the list
             G = nx.DiGraph()
@@ -85,11 +90,15 @@ class Betweeness:
           if 'edge_weight' in df.columns:
           #result = df.groupby('source_node').apply(lambda x: dict(zip(x.target_node, x.edge_weight))).to_dict()
            result = df.groupby('source_node')[['source_node', 'target_node', 'edge_weight']].apply(lambda x: dict(zip(x.target_node, x.edge_weight))).to_dict()
-          else:
-            result = df.groupby('source_node')['target_node'].apply(list).to_dict()
-          return result
+          else: 
+           if 'value' in df.columns:
+            # Check if 'value' column has None or 1
+            if df['value'].isin([None, 1]).any():
+                # Filter rows where 'value' is 1 and create a dictionary with 'source' as keys and 'target' as values
+                result = df[df['value'] == 1].groupby('source')['target'].apply(list).to_dict()
+                return result
       result = create_dict(df)
-      #print(result)
+      print(result)
           
       if 'edge_weight' not in df.columns:
         G = nx.DiGraph(result)
