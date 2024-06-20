@@ -78,7 +78,7 @@ def main():
     selected_option = st.sidebar.selectbox('Select an option', options)
     
 
-    cent_option = ["List of Node Centralities","Aggregate Measure","Coreness", "PageRank", "Betweenness",          
+    cent_option = ["List of Node Centralities","Coreness", "PageRank", "Betweenness",          
                 "Closeness Centrality",
                 "Eigenvector Centrality",
                 "Local Cluserting Coefficient",
@@ -89,6 +89,7 @@ def main():
                 "Maximum Neighborhood Component",
                 "Semi Local Centrality",
                 "Load Centrality",
+                #"Aggregate Measure"
                 "Laplacian Centrality",]  
     
     if graph_type == 'Static':
