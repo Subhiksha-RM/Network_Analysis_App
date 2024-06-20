@@ -48,7 +48,7 @@ class Pagerank:
              G = nx.DiGraph(result)
              #graph_dr5=nx.draw(G, with_labels=True) 
              if G.edges():  # Check if the graph has any edges
-              pagerank_centrality = nx.pagerank(G, alpha=0.85)
+              pagerank_centrality = nx.pagerank(G, alpha=0.85, max_iter=1000)
               edge_labels=None
       
 
@@ -67,7 +67,7 @@ class Pagerank:
             edge_labels = nx.get_edge_attributes(G, 'weight')
             
             if G.edges():  # Check if the graph has any edges
-             pagerank_centrality = nx.pagerank(G, alpha=0.85)
+             pagerank_centrality = nx.pagerank(G, alpha=0.85, max_iter=1000)
                   
       
       viz(G, pagerank_centrality, edge_labels)
@@ -95,7 +95,7 @@ class Pagerank:
         G = nx.DiGraph(result)
 
         if G.edges():  # Check if the graph has any edges
-             pagerank_whole = nx.pagerank(G, alpha=0.85)
+             pagerank_whole = nx.pagerank(G, alpha=0.85, max_iter=1000)
              edge_labels=None
              
       else:
@@ -112,7 +112,7 @@ class Pagerank:
           edge_labels = nx.get_edge_attributes(G, 'weight')
           
           if G.edges():  # Check if the graph has any edges
-             pagerank_whole = nx.pagerank(G, alpha=0.85)
+             pagerank_whole = nx.pagerank(G, alpha=0.85, max_iter=1000)
              
       
       viz(G, pagerank_whole, edge_labels)

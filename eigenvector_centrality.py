@@ -46,6 +46,7 @@ class Eigenvector:
           
       if 'edge_weight' not in df.columns:
              G = nx.DiGraph(result)
+             pos = nx.spring_layout(G)
              #graph_dr5=nx.draw(G, with_labels=True) 
              if G.edges():  # Check if the graph has any edges
               eigenvector_centrality = nx.eigenvector_centrality(G, max_iter=500)
@@ -93,6 +94,7 @@ class Eigenvector:
           
       if 'edge_weight' not in df.columns:
         G = nx.DiGraph(result)
+        pos = nx.spring_layout(G)
 
         if G.edges():  # Check if the graph has any edges
              eigenvector_whole = nx.eigenvector_centrality(G, max_iter=500)

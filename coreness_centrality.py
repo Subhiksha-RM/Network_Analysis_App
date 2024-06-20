@@ -97,6 +97,7 @@ class Coreness:
       if 'edge_weight' not in df.columns:
         G = nx.DiGraph(result)
         G.remove_edges_from(nx.selfloop_edges(G))
+        pos = nx.spring_layout(G)
         if G.edges():  # Check if the graph has any edges
              coreness_whole = nx.core_number(G)
              edge_labels=None

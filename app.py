@@ -80,7 +80,7 @@ def main():
 
     cent_option = ["List of Node Centralities","Aggregate Measure","Coreness", "PageRank", "Betweenness",          
                 "Closeness Centrality",
-                #"Eigenvector Centrality",
+                "Eigenvector Centrality",
                 "Local Cluserting Coefficient",
                 "Degree Centrality",
                 "Percolation Centrality",
@@ -101,7 +101,7 @@ def main():
         st.write("Compare two Centrality Algorithms")
         
         # Define your algorithms
-        algorithms_left = ["Coreness", "PageRank", "Betweenness","Closeness Centrality",#"Eigenvector Centrality",
+        algorithms_left = ["Coreness", "PageRank", "Betweenness","Closeness Centrality","Eigenvector Centrality",
                            "Local Cluserting Coefficient", "Percolation Centrality",]
         
                 
@@ -389,6 +389,16 @@ def main():
             st.write("Maximum Neighborhood Component")
             result = mnc.max_neighborhood_whole(feature_option1)
             #st.write(result) 
+
+        if selected_algorithms_left["Eigenvector Centrality"]: 
+           if feature_option1 in feature_unique1:
+            st.write("Eigenvector Centrality")
+            result = ev.eigenvector_centrality(feature_option1)
+            #st.write(result)
+           elif feature_option1 in feature_option1=="Whole Network":
+            st.write("Eigenvector Centrality")
+            result = ev.eigenvector_whole(feature_option1)
+            #st.write(result
 
 
     if graph_type=="Dynamic":
