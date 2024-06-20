@@ -13,7 +13,8 @@ from local_clustering_coefficient import LClustering
 from percolation_centrality import Percolation
 from semi_local_centrality import Semilocal
 from load_centrality import Load
-import compare_centrality
+from cluster_rank_centrality import Clusterrank
+from max_neighborhood_centrality import MaxNeighborhood
 
 st.set_page_config(page_title="Network Analysis", layout="centered")
 st.write("Network Analysis. .")
@@ -44,7 +45,7 @@ def main():
         st.write(st.session_state['edge_data'])
         processed_data=critical_edge_algo.process_edge_data(st.session_state['edge_data'])
         
-        c, b, p, k, l, cl, ev, d, lc, pc, slc, loc = critical_edge_algo.process_edge_data(st.session_state['edge_data'])
+        c, b, p, k, l, cl, ev, d, lc, pc, slc, loc, clr, mnc = critical_edge_algo.process_edge_data(st.session_state['edge_data'])
         processed_data = loc.process_edge_data(st.session_state['edge_data'])
         processed_data = slc.process_edge_data(st.session_state['edge_data'])
         processed_data = pc.process_edge_data(st.session_state['edge_data'])
@@ -57,8 +58,8 @@ def main():
         processed_data = b.process_edge_data(st.session_state['edge_data'])
         processed_data = l.process_edge_data(st.session_state['edge_data'])
         processed_data = cl.process_edge_data(st.session_state['edge_data'])
-        
-
+        processed_data = clr.process_edge_data(st.session_state['edge_data'])
+        processed_data = mnc.process_edge_data(st.session_state['edge_data'])
         edge_df = st.session_state['edge_data'].copy()
         edge_df1 = st.session_state['edge_data'].copy()
         feature_unique1 = edge_df['feature'].unique()
@@ -84,9 +85,9 @@ def main():
                 "Degree Centrality",
                 "Percolation Centrality",
                 "Katz Centrality",
-                #"Cluster Rank Centrality",
-                #"Maximum Neighborhood Component",
-                #"Semi Local Centrality",
+                "Cluster Rank Centrality",
+                "Maximum Neighborhood Component",
+                "Semi Local Centrality",
                 "Load Centrality",
                 "Laplacian Centrality",]  
     
@@ -101,12 +102,11 @@ def main():
         
         # Define your algorithms
         algorithms_left = ["Coreness", "PageRank", "Betweenness","Closeness Centrality",#"Eigenvector Centrality",
-                           "Local Cluserting Coefficient",]
+                           "Local Cluserting Coefficient", "Percolation Centrality",]
         
                 
-        algorithms_right = ["Katz Centrality", #"Cluster Rank Centrality",
-                #"Maximum Neighborhood Component", #"Semi Local Centrality",
-                "Load Centrality","Laplacian Centrality","Degree Centrality","Percolation Centrality",]
+        algorithms_right = ["Katz Centrality", "Cluster Rank Centrality","Maximum Neighborhood Component","Semi Local Centrality",
+                            "Load Centrality","Laplacian Centrality","Degree Centrality",]
         
 
         # Create checkboxes for algorithms in the sidebar
@@ -238,7 +238,26 @@ def main():
             st.write("Load Centrality")
             result = loc.load_whole(feature_option)
             #st.write(result)
+        
+        if cent_option == "Cluster Rank Centrality":
+           if feature_option in feature_unique:
+            st.write("Cluster Rank Centrality")
+            result = clr.cluster_rank_centrality(feature_option)
+            #st.write(result)
+           elif feature_option in feature_option=="Whole Network":
+            st.write("Cluster Rank Centrality")
+            result = clr.cluster_rank_whole(feature_option)
+            #st.write(result)  
             
+        if cent_option == "Maximum Neighborhood Component":
+           if feature_option in feature_unique:
+            st.write("Maximum Neighborhood Component")
+            result = mnc.max_neighborhood_centrality(feature_option)
+            #st.write(result)
+           elif feature_option in feature_option=="Whole Network":
+            st.write("Maximum Neighborhood Component")
+            result = mnc.max_neighborhood_whole(feature_option)
+            #st.write(result)   
         
 
         if selected_algorithms_left["Coreness"]:
@@ -340,7 +359,7 @@ def main():
             result = lc.local_clustering_whole(feature_option1)
             #col1.write(result)
 
-        if selected_algorithms_right["Percolation Centrality"]:
+        if selected_algorithms_left["Percolation Centrality"]:
           
           if feature_option1 in feature_unique1:
             col2.write("Percolation Centrality")
@@ -350,6 +369,26 @@ def main():
             col2.write("Percolation Centrality")
             result = pc.percolation_whole(feature_option1)
             #col2.write(result)
+        
+        if selected_algorithms_right["Cluster Rank Centrality"]:
+          if feature_option1 in feature_unique1:
+            st.write("Cluster Rank Centrality")
+            result = clr.cluster_rank_centrality(feature_option1)
+            #st.write(result)
+          elif feature_option1 in feature_option1=="Whole Network":
+            st.write("Cluster Rank Centrality")
+            result = clr.cluster_rank_whole(feature_option1)
+            #st.write(result)  
+
+        if selected_algorithms_right["Maximum Neighborhood Component"]:      
+          if feature_option1 in feature_unique1:
+            st.write("Maximum Neighborhood Component")
+            result = mnc.max_neighborhood_centrality(feature_option1)
+            #st.write(result)
+          elif feature_option1 in feature_option1=="Whole Network":
+            st.write("Maximum Neighborhood Component")
+            result = mnc.max_neighborhood_whole(feature_option1)
+            #st.write(result) 
 
 
     if graph_type=="Dynamic":

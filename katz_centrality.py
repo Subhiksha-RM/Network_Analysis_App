@@ -48,7 +48,7 @@ class Katz:
              G = nx.DiGraph(result)
              #graph_dr5=nx.draw(G, with_labels=True) 
              if G.edges():  # Check if the graph has any edges
-              katz_centrality = nx.katz_centrality(G)
+              katz_centrality = nx.katz_centrality(G,  alpha=0.005)
               edge_labels=None
       
 
@@ -67,7 +67,7 @@ class Katz:
             edge_labels = nx.get_edge_attributes(G, 'weight')
             
             if G.edges():  # Check if the graph has any edges
-             katz_centrality = nx.katz_centrality(G)
+             katz_centrality = nx.katz_centrality(G,  alpha=0.005)
                   
       
       viz(G, katz_centrality, edge_labels)
@@ -95,7 +95,7 @@ class Katz:
         G = nx.DiGraph(result)
 
         if G.edges():  # Check if the graph has any edges
-             katz_whole = nx.katz_centrality(G)
+             katz_whole = nx.katz_centrality(G,  alpha=0.005)
              edge_labels=None
              
       else:
@@ -112,7 +112,7 @@ class Katz:
           edge_labels = nx.get_edge_attributes(G, 'weight')
           
           if G.edges():  # Check if the graph has any edges
-             katz_whole = nx.katz_centrality(G)
+             katz_whole = nx.katz_centrality(G,  alpha=0.005)
              
       
       viz(G, katz_whole, edge_labels)

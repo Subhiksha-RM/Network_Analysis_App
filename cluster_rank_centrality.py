@@ -7,8 +7,9 @@ import matplotlib.colors as mcolors
 import matplotlib.cm as cm
 import numpy as np
 from network_viz import viz 
+import netcenlib as ncl
 
-class Coreness:
+class Clusterrank:
     def __init__(self):
          
         self.edge_data = None
@@ -23,8 +24,8 @@ class Coreness:
         return self.df1
     
 
-    def coreness_centrality(self, feature_option):
-      coreness_centrality = {}
+    def cluster_rank_centrality(self, feature_option):
+      cluster_rank_centrality = {}
         
       feature = int(feature_option)
       print(type(feature))
@@ -45,12 +46,12 @@ class Coreness:
 
           
       if 'edge_weight' not in df.columns:
-             G = nx.DiGraph(result)
+             G = nx.Graph(result)
              G.remove_edges_from(nx.selfloop_edges(G))
              pos = nx.spring_layout(G)
              #graph_dr5=nx.draw(G, with_labels=True) 
              if G.edges():  # Check if the graph has any edges
-              coreness_centrality = nx.core_number(G)
+              cluster_rank_centrality = ncl.cluster_rank_centrality(G)
               edge_labels=None
       
 
@@ -61,7 +62,7 @@ class Coreness:
             # Convert the dictionary to a list of edges with weights if it has edge weights,
             edges = [(src, tgt, {'weight': wgt}) for src, tgts in result.items() for tgt, wgt in tgts.items()]
             # Create a directed graph and add edges from the list
-            G = nx.DiGraph()
+            G = nx.Graph()
             G.add_edges_from(edges)
             G.remove_edges_from(nx.selfloop_edges(G))
             # Draw the graph
@@ -70,15 +71,15 @@ class Coreness:
             edge_labels = nx.get_edge_attributes(G, 'weight')
             
             if G.edges():  # Check if the graph has any edges
-             coreness_centrality = nx.core_number(G)
+             cluster_rank_centrality = ncl.cluster_rank_centrality(G)
                   
       
-      viz(G, coreness_centrality, edge_labels)
-      return coreness_centrality
+      viz(G, cluster_rank_centrality, edge_labels)
+      return cluster_rank_centrality
     
 
        
-    def coreness_whole(self, feature_option):
+    def cluster_rank_whole(self, feature_option):
         
       feature = feature_option  
       df = self.df1
@@ -95,10 +96,10 @@ class Coreness:
       #print(result)
           
       if 'edge_weight' not in df.columns:
-        G = nx.DiGraph(result)
+        G = nx.Graph(result)
         G.remove_edges_from(nx.selfloop_edges(G))
         if G.edges():  # Check if the graph has any edges
-             coreness_whole = nx.core_number(G)
+             cluster_rank_whole = ncl.cluster_rank_centrality(G)
              edge_labels=None
              
       else:
@@ -107,7 +108,7 @@ class Coreness:
           # Convert the dictionary to a list of edges with weights if it has edge weights,
           edges = [(src, tgt, {'weight': wgt}) for src, tgts in result.items() for tgt, wgt in tgts.items()]
           # Create a directed graph and add edges from the list
-          G = nx.DiGraph()
+          G = nx.Graph()
           G.add_edges_from(edges)
           G.remove_edges_from(nx.selfloop_edges(G))
           # Draw the graph
@@ -116,11 +117,11 @@ class Coreness:
           edge_labels = nx.get_edge_attributes(G, 'weight')
           
           if G.edges():  # Check if the graph has any edges
-             coreness_whole = nx.core_number(G)
+             cluster_rank_whole = ncl.cluster_rank_centrality(G)
              
       
-      viz(G, coreness_whole, edge_labels)
-      return coreness_whole
+      viz(G, cluster_rank_whole, edge_labels)
+      return cluster_rank_whole
 
    
 

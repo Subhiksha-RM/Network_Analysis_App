@@ -29,10 +29,10 @@ def viz(G, centrality_values, edge_labels=None):
         if centrality_rank[node] == 0:
             color_map.append('none')  # Nodes with 0 value are not colored
         else:
-            color_map = [plt.cm.Blues(centrality_rank[node]) for node in G]# Nodes with value more than 0 are colored
+            color_map = [plt.cm.Purples(centrality_rank[node]) for node in G]# Nodes with value more than 0 are colored
 
     # Draw the graph with the color map
-    pos = nx.spring_layout(G)
+    pos = nx.circular_layout(G)
     nx.draw(G, pos, node_color=color_map, with_labels=True)
     if edge_labels is not None:
         nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)

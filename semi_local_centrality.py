@@ -50,7 +50,7 @@ class Semilocal:
              G = nx.DiGraph(result)
              #graph_dr5=nx.draw(G, with_labels=True) 
              if G.edges():  # Check if the graph has any edges
-              semi_local_centrality = nx.core_number(G)
+              semi_local_centrality = ncl_algorithms.semi_local_centrality(G)
               edge_labels=None
       
 
@@ -69,7 +69,7 @@ class Semilocal:
             edge_labels = nx.get_edge_attributes(G, 'weight')
             
             if G.edges():  # Check if the graph has any edges
-             semi_local_centrality = nx.core_number(G)
+             semi_local_centrality = ncl_algorithms.semi_local_centrality(G)
                   
       
       viz(G, semi_local_centrality, edge_labels)
@@ -97,7 +97,7 @@ class Semilocal:
         G = nx.DiGraph(result)
 
         if G.edges():  # Check if the graph has any edges
-             semi_local_whole = nx.core_number(G)
+             semi_local_whole = ncl_algorithms.semi_local_centrality(G)
              edge_labels=None
              
       else:
@@ -114,7 +114,7 @@ class Semilocal:
           edge_labels = nx.get_edge_attributes(G, 'weight')
           
           if G.edges():  # Check if the graph has any edges
-             semi_local_whole = nx.core_number(G)
+             semi_local_whole = ncl_algorithms.semi_local_centrality(G)
              
       
       viz(G, semi_local_whole, edge_labels)
